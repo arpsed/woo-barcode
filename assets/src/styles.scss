@@ -2,16 +2,16 @@
 @import 'scss/ggmodal';
 
 #bwoBarcodeScanner {
-	.gg-modal-dialog {
+	.bwo-modal-dialog {
 		max-width: 40em;
 	}
 
-	.gg-modal-title {
+	.bwo-modal-title {
 		font-size: calc(1.5 * #{$fontsize});
 	}
 }
 
-.gg-modal-body {
+.bwo-modal-body {
 	form {
 		display: flex;
 

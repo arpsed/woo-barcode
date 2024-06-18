@@ -34,9 +34,9 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	}
 
 	if ( scannerLink ) {
-		scannerLink.classList.add( 'gg-modal-open' );
+		scannerLink.classList.add( 'bwo-modal-open' );
 
-		const $body = document.querySelector( '#bwoBarcodeScanner .gg-modal-body' ),
+		const $body = document.querySelector( '#bwoBarcodeScanner .bwo-modal-body' ),
 			$form = $body.querySelector( 'form' ),
 			$message = $body.querySelector( '.bwo-scanner-message' ),
 			$result = $body.querySelector( '.bwo-scanner-result' );
@@ -102,17 +102,17 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				});
 		});
 
-		$( '#bwoBarcodeScanner' ).on( 'ggModalOpened', function () {
+		$( '#bwoBarcodeScanner' ).on( 'bwoModalOpened', function () {
 			$form.querySelector( '[type="text"]' ).focus();
 		});
 
-		$( '#bwoBarcodeScanner' ).on( 'ggModalClosed', function () {
+		$( '#bwoBarcodeScanner' ).on( 'bwoModalClosed', function () {
 			clearElms();
 		});
 	}
 
 	function clearElms( withForm = true ) {
-		const $body = document.querySelector( '#bwoBarcodeScanner .gg-modal-body' ),
+		const $body = document.querySelector( '#bwoBarcodeScanner .bwo-modal-body' ),
 			$message = $body.querySelector( '.bwo-scanner-message' ),
 			$result = $body.querySelector( '.bwo-scanner-result' );
 

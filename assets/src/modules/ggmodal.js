@@ -14,10 +14,10 @@ export default () => {
 		},
 
 		addEventListeners = () => {
-			$b.on( 'open', '.gg-modal', modalOpenHandler );
-			$b.on( 'close', '.gg-modal', modalCloseHandler );
-			$b.on( 'click', '.gg-modal-open', clickOpenHandler );
-			$b.on( 'click', '.gg-modal-close', clickCloseHandler );
+			$b.on( 'open', '.bwo-modal', modalOpenHandler );
+			$b.on( 'close', '.bwo-modal', modalCloseHandler );
+			$b.on( 'click', '.bwo-modal-open', clickOpenHandler );
+			$b.on( 'click', '.bwo-modal-close', clickCloseHandler );
 			$( w ).on( 'resize', resizeHandler );
 		},
 
@@ -34,7 +34,7 @@ export default () => {
 				const $origin = $( event.currentTarget );
 
 				$this.addClass( 'show' );
-				$this.trigger( 'ggModalOpened', {
+				$this.trigger( 'bwoModalOpened', {
 					...{ origin: $origin },
 					...$origin.data(),
 				});
@@ -63,7 +63,7 @@ export default () => {
 
 		handlerClose = modalID => {
 			modals[modalID].removeClass( 'show' ).css( 'display', '' ).removeAttr( 'data-modal-id' );
-			modals[modalID].trigger( 'ggModalClosed' );
+			modals[modalID].trigger( 'bwoModalClosed' );
 
 			if ( modals.length === 1 ) {
 				$b.removeClass( 'body-modal' ).css( 'padding-right', '' );
@@ -89,7 +89,7 @@ export default () => {
 		},
 
 		getModalTpl = () => {
-			return $( $( '#ggModalTemplate' ).html() ).clone();
+			return $( $( '#bwoModalTemplate' ).html() ).clone();
 		};
 
 	init();

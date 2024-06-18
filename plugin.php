@@ -3,7 +3,7 @@
  * Plugin Name: Barcode for WooCommerce Orders
  * Plugin URI: https://github.com/arpsed/woo-barcode
  * Description: Lookup & Generate barcode for WooCommerce orders
- * Version: 1.0.2
+ * Version: 1.0.3
  * Author: Dessi Prayogo
  * Author URI: https://github.com/arpsed
  * License: GPL v2 or later
@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 
 // phpcs:disable WordPress.Security.EscapeOutput.HeredocOutputNotEscaped
 
-define( 'GGBWO_VER', '1.0.2' );
+define( 'GGBWO_VER', '1.0.3' );
 // define( 'GGBWO_VER', time() );
 define( 'GGBWO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'GGBWO_URI', plugin_dir_url( __FILE__ ) );
@@ -89,16 +89,16 @@ add_action( 'admin_footer', function () {
 	$button_labl = esc_html__( 'Search', 'ggbwo' );
 
 	echo <<<HTML
-<aside id="bwoBarcodeScanner" class="gg-modal fade" tabindex="-1" role="dialog">
-	<div class="gg-modal-dialog" role="document">
-		<div class="gg-modal-content">
-			<div class="gg-modal-header">
-				<h4 class="gg-modal-title">{$modal_title}</h4>
-				<button type="button" class="gg-modal-close">
+<aside id="bwoBarcodeScanner" class="bwo-modal fade" tabindex="-1" role="dialog">
+	<div class="bwo-modal-dialog" role="document">
+		<div class="bwo-modal-content">
+			<div class="bwo-modal-header">
+				<h4 class="bwo-modal-title">{$modal_title}</h4>
+				<button type="button" class="bwo-modal-close">
 					<span>&times;</span>
 				</button>
 			</div>
-			<div class="gg-modal-body">
+			<div class="bwo-modal-body">
 				<form>
 					<input type="text" placeholder="{$input_plho}">
 					<button type="submit">{$button_labl}</button>
