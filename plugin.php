@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Barcode for WooCommerce Orders
- * Plugin URI: https://github.com/arpsed/gg-woo-barcode
+ * Plugin URI: https://github.com/arpsed/woo-barcode
  * Description: Lookup & Generate barcode for WooCommerce orders
  * Version: 1.0.0
  * Author: Dessi Prayogo
