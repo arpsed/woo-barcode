@@ -3,7 +3,7 @@
  * Plugin Name: Barcode for WooCommerce Orders
  * Plugin URI: https://github.com/arpsed/woo-barcode
  * Description: Lookup & Generate barcode for WooCommerce orders
- * Version: 1.0.0
+ * Version: 1.0.1
  * Author: Dessi Prayogo
  * Author URI: https://github.com/arpsed
  * License: GPL v2 or later
@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 
 // phpcs:disable WordPress.Security.EscapeOutput.HeredocOutputNotEscaped
 
-define( 'GGBWO_VER', '1.0.0' );
+define( 'GGBWO_VER', '1.0.1' );
 // define( 'GGBWO_VER', time() );
 define( 'GGBWO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'GGBWO_URI', plugin_dir_url( __FILE__ ) );
@@ -72,6 +72,10 @@ add_action( 'admin_enqueue_scripts', function () {
 	wp_enqueue_script( 'ggbwo', GGBWO_URI . 'assets/scripts.js', [], GGBWO_VER, true );
 	wp_localize_script( 'ggbwo', 'ggbwo', [
 		'ajaxurl' => admin_url( 'admin-ajax.php' ),
+		'texts'   => [
+			'labelSearch' => __( 'Search', 'ggbwo' ),
+			'labelSrchin' => __( 'Searching…', 'ggbwo' ),
+		],
 		'nonces'  => [
 			'scanner' => wp_create_nonce( 'ggbwo_get_order' ),
 			'status'  => wp_create_nonce( 'ggbwo_order_status' ),

@@ -45,17 +45,21 @@ document.addEventListener( 'DOMContentLoaded', function () {
 			e.preventDefault();
 
 			const orderId = $form.querySelector( '[type="text"]' ).value.trim().replace( /\D/g, '' ),
+				$submit = $form.querySelector( '[type="submit"]' ),
 				fetchURL = new URL( ggbwo.ajaxurl );
 
 			fetchURL.searchParams.append( 'action', 'ggbwo_get_order' );
 			fetchURL.searchParams.append( 'orderId', orderId );
 			fetchURL.searchParams.append( 'nonce', ggbwo.nonces.scanner );
+			$submit.textContent = ggbwo.texts.labelSrchin;
 			clearElms( false );
 			disableElms();
 			fetch( fetchURL.href )
 				.then( response => response.json() )
 				.then( payload => {
 					disableElms( false );
+
+					$submit.textContent = ggbwo.texts.labelSearch;
 
 					if ( ! payload.success ) {
 						$message.textContent = payload.message;
