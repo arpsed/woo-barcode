@@ -1,0 +1,88 @@
+.body-modal {
+	overflow: hidden;
+
+	.gg-modal {
+		overflow-x: hidden;
+		overflow-y: auto !important;
+	}
+}
+
+.gg-modal {
+	color: $basecolor;
+	font-size: $fontsize;
+	background-color: rgba(0, 0, 0, 0.3);
+	display: none;
+	width: 100% !important;
+	height: 100%;
+	max-width: none !important;
+	position: fixed;
+	top: 0;
+	left: 0;
+	overflow: hidden !important;
+	outline: 0;
+	z-index: 1273;
+
+	&.fade {
+		transition: opacity 0.15s linear;
+
+		&:not(.show) {
+			opacity: 0;
+		}
+	}
+}
+
+.gg-modal-dialog {
+	width: auto;
+	max-width: 60em;
+	margin: 2.75em auto;
+	position: relative;
+}
+
+.gg-modal-content {
+	background-color: #FFF;
+	background-clip: padding-box;
+	display: flex;
+	flex-direction: column;
+	border: thin solid rgba(0, 0, 0, 0.2);
+	border-radius: 0.3em;
+	width: 100%;
+	position: relative;
+	outline: 0;
+}
+
+.gg-modal-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	border-bottom: thin solid #DEE2E6;
+	border-top-left-radius: 0.3em;
+	border-top-right-radius: 0.3em;
+	padding: 1em;
+
+	.gg-modal-close {
+		font-size: calc(1.5 - #{$fontsize});
+		font-weight: bold;
+		line-height: 1;
+		color: #000;
+		text-shadow: 0 1px 0 #FFF;
+		background-color: transparent;
+		border: 0;
+		-webkit-appearance: none;-moz-appearance: none;appearance: none;
+		margin: -1em -1em -1em auto;
+		padding: 1em;
+		cursor: pointer;
+		opacity: 0.5;
+	}
+}
+
+.gg-modal-title {
+	line-height: 1.25em;
+	margin: 0 !important;
+}
+
+.gg-modal-body,
+.gg-modal-footer {
+	flex: 1 1 auto;
+	padding: 1em;
+	position: relative;
+}

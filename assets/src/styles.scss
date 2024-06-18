@@ -1,0 +1,107 @@
+@import 'scss/vars';
+@import 'scss/ggmodal';
+
+#bwoBarcodeScanner {
+	.gg-modal-dialog {
+		max-width: 40em;
+	}
+
+	.gg-modal-title {
+		font-size: calc(1.5 * #{$fontsize});
+	}
+}
+
+.gg-modal-body {
+	form {
+		display: flex;
+
+		> * {
+			color: $basecolor;
+			font-size: calc(1.125 * #{$fontsize});
+			line-height: 1;
+			display: block;
+			padding: 0.3em 0.6em;
+			border: thin solid $basecolor;
+			border-radius: 0;
+
+			&:focus {
+				outline: none;
+				box-shadow: none;
+			}
+		}
+
+		> input[type="text"] {
+			flex-grow: 1;
+		}
+
+		> button {
+			cursor: pointer;
+		}
+	}
+
+	.bwo-scanner-result {
+		.bwo-order-title {
+			font-size: calc(1.25 * #{$fontsize});
+			border-top: thin solid $basecolor;
+			margin: 1em 0;
+			padding-top: 1em;
+
+			> a {
+				color: $basecolor;
+				text-decoration: none;
+
+				&:focus {
+					outline: none;
+					box-shadow: none;
+				}
+
+				.dashicons {
+					font-size: $fontsize;
+					width: $fontsize;
+					height: $fontsize;
+				}
+			}
+		}
+
+		p,
+		select {
+			font-size: $fontsize;
+		}
+
+		.bwo-order-data {
+			display: flex;
+			column-gap: 2em;
+
+			> * {
+				flex: 0 0 50%;
+			}
+		}
+
+		.bwo-order-items {
+			border-top: thin solid $basecolor;
+			margin-top: 1em;
+
+			table {
+				width: 100%;
+
+				th,
+				td {
+					text-align: right;
+					padding: 0.5em 0;
+
+					&:first-child {
+						text-align: left;
+					}
+				}
+
+				tr {
+					&:not(:last-child) {
+						td {
+							border-bottom: thin solid lighten($basecolor, 75%);
+						}
+					}
+				}
+			}
+		}
+	}
+}
