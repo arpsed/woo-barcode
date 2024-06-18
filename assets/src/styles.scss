@@ -46,19 +46,17 @@
 			margin: 1em 0;
 			padding-top: 1em;
 
-			> a {
+			small {
+				font-size: calc(0.85 * #{$fontsize});
+				font-weight: normal;
+			}
+
+			a {
 				color: $basecolor;
-				text-decoration: none;
 
 				&:focus {
 					outline: none;
 					box-shadow: none;
-				}
-
-				.dashicons {
-					font-size: $fontsize;
-					width: $fontsize;
-					height: $fontsize;
 				}
 			}
 		}
