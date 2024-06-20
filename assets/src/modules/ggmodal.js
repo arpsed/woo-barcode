@@ -1,11 +1,11 @@
 export default () => {
 	let scrollWidth = 0,
-		modals = [];
+		modals = [],
+		zIndex = 1273;
 
-	const $ = jQuery,
-		d = document,
+	const d = document,
 		w = window,
-		$b = $( 'body' ),
+		$b = d.querySelector( 'body' ),
 
 		init = () => {
 			scrollWidth = w.innerWidth - d.documentElement.clientWidth;
@@ -14,82 +14,82 @@ export default () => {
 		},
 
 		addEventListeners = () => {
-			$b.on( 'open', '.bwo-modal', modalOpenHandler );
-			$b.on( 'close', '.bwo-modal', modalCloseHandler );
-			$b.on( 'click', '.bwo-modal-open', clickOpenHandler );
-			$b.on( 'click', '.bwo-modal-close', clickCloseHandler );
-			$( w ).on( 'resize', resizeHandler );
+			$b.addEventListener( 'click', function ( e ) {
+				if ( e.target.matches( '.bwo-modal-open' ) || e.target.closest( '.bwo-modal-open' ) ) {
+					e.preventDefault();
+
+					const origin = e.target.matches( '.bwo-modal-open' ) ? e.target : e.target.closest( '.bwo-modal-open' ),
+						target = d.querySelector( origin.getAttribute( 'href' ) || origin.dataset.target );
+
+					handlerOpen( target, origin );
+				}
+
+				if ( e.target.matches( '.bwo-modal-close' ) || e.target.closest( '.bwo-modal-close' )  ) {
+					e.preventDefault();
+
+					const origin = e.target.matches( '.bwo-modal-close' ) ? e.target : e.target.closest( '.bwo-modal-close' ),
+						modalId = parseInt( origin.closest( '[data-modal-id]' ).dataset.modalId );
+
+					handlerClose( modalId );
+				}
+			}, false );
+
+			$b.addEventListener( 'open', function ( e ) {
+				if ( e.detail.modalTarget ) {
+					handlerOpen( document.getElementById( e.detail.modalTarget ), {});
+				}
+			}, false );
+
+			$b.addEventListener( 'close', function ( e ) {
+				if ( e.detail.modalTarget ) {
+					handlerClose( parseInt( document.getElementById( e.detail.modalTarget ).dataset.modalId ) );
+				}
+			}, false );
+
+			w.addEventListener( 'resize', resizeHandler );
 		},
 
-		handlerOpen = ( $this, event ) => {
-			modals.push( $this );
-			$this.attr( 'data-modal-id', modals.length - 1 );
-			$this.css( 'display', 'block' );
+		handlerOpen = ( $popup, origin ) => {
+			modals.push( $popup );
+			$popup.setAttribute( 'data-modal-id', modals.length - 1 );
+			$popup.style.display = 'block';
+			$popup.style.zIndex = zIndex + ( modals.length - 1 );
 
-			if ( ! $b.hasClass( 'body-modal' ) ) {
-				$b.addClass( 'body-modal' ).css( 'padding-right', scrollWidth );
+			if ( ! $b.classList.contains( 'body-modal' ) ) {
+				$b.classList.add( 'body-modal' );
+
+				$b.style.paddingRight = scrollWidth;
 			}
 
 			setTimeout( () => {
-				const $origin = $( event.currentTarget );
+				const data = origin.dataset ? origin.dataset : null;
 
-				$this.addClass( 'show' );
-				$this.trigger( 'bwoModalOpened', {
-					...{ origin: $origin },
-					...$origin.data(),
-				});
+				$popup.classList.add( 'show' );
+				$popup.dispatchEvent(
+					new CustomEvent( 'bwoModalOpened', { detail: data }),
+				);
 			}, 150 );
 		},
 
-		modalOpenHandler = function ( e ) {
-			handlerOpen( $( this ), e );
-		},
+		handlerClose = modalId => {
+			modals[modalId].classList.remove( 'show' );
+			modals[modalId].removeAttribute( 'data-modal-id' );
 
-		clickOpenHandler = e => {
-			e.preventDefault();
-
-			const target = e.currentTarget.getAttribute( 'href' ) || e.currentTarget.getAttribute( 'data-target' );
-
-			let $this = $( target );
-
-			if ( $this.length === 0 ) {
-				$this = getModalTpl();
-
-				$this.attr( 'id', target.substr( 1 ) ).appendTo( $b );
-			}
-
-			handlerOpen( $this, e );
-		},
-
-		handlerClose = modalID => {
-			modals[modalID].removeClass( 'show' ).css( 'display', '' ).removeAttr( 'data-modal-id' );
-			modals[modalID].trigger( 'bwoModalClosed' );
+			modals[modalId].style.display = '';
+			modals[modalId].style.zIndex = '';
 
 			if ( modals.length === 1 ) {
-				$b.removeClass( 'body-modal' ).css( 'padding-right', '' );
+				$b.classList.remove( 'body-modal' );
+
+				$b.style.paddingRight = '';
 			}
 
-			modals.splice( modalID, 1 );
-		},
-
-		modalCloseHandler = function () {
-			handlerClose( $( this ).data( 'modal-id' ) );
-		},
-
-		clickCloseHandler = e => {
-			e.preventDefault();
-
-			const modalID = parseInt( $( e.target ).parents( '[data-modal-id]' ).data( 'modal-id' ) );
-
-			handlerClose( modalID );
+			modals[modalId].dispatchEvent( new Event( 'bwoModalClosed' ) );
+			modals.splice( modalId, 1 );
 		},
 
 		resizeHandler = () => {
 			scrollWidth = w.innerWidth - d.documentElement.clientWidth;
-		},
-
-		getModalTpl = () => {
-			return $( $( '#bwoModalTemplate' ).html() ).clone();
 		};
 
 	init();

@@ -8,8 +8,7 @@ import printJS from 'print-js';
 document.addEventListener( 'DOMContentLoaded', function () {
 	ggModal();
 
-	const $ = jQuery,
-		orderBarcode = document.getElementById( 'bwoOrderBarcode' ),
+	const orderBarcode = document.getElementById( 'bwoOrderBarcode' ),
 		scannerLink = document.querySelector( '.bwo-barcode-scanner .ab-item' );
 
 	if ( orderBarcode ) {
@@ -36,7 +35,8 @@ document.addEventListener( 'DOMContentLoaded', function () {
 	if ( scannerLink ) {
 		scannerLink.classList.add( 'bwo-modal-open' );
 
-		const $body = document.querySelector( '#bwoBarcodeScanner .bwo-modal-body' ),
+		const $modal = document.getElementById( 'bwoBarcodeScanner' ),
+			$body = $modal.querySelector( '.bwo-modal-body' ),
 			$form = $body.querySelector( 'form' ),
 			$message = $body.querySelector( '.bwo-scanner-message' ),
 			$result = $body.querySelector( '.bwo-scanner-result' );
@@ -102,11 +102,11 @@ document.addEventListener( 'DOMContentLoaded', function () {
 				});
 		});
 
-		$( '#bwoBarcodeScanner' ).on( 'bwoModalOpened', function () {
+		$modal.addEventListener( 'bwoModalOpened', function () {
 			$form.querySelector( '[type="text"]' ).focus();
 		});
 
-		$( '#bwoBarcodeScanner' ).on( 'bwoModalClosed', function () {
+		$modal.addEventListener( 'bwoModalClosed', function () {
 			clearElms();
 		});
 	}

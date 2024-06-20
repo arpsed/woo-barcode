@@ -3,7 +3,7 @@
  * Plugin Name: Barcode for WooCommerce Orders
  * Plugin URI: https://github.com/arpsed/woo-barcode
  * Description: Lookup & Generate barcode for WooCommerce orders
- * Version: 1.0.3
+ * Version: 1.0.5
  * Author: Dessi Prayogo
  * Author URI: https://github.com/arpsed
  * License: GPL v2 or later
@@ -18,7 +18,7 @@ defined( 'ABSPATH' ) || exit;
 
 // phpcs:disable WordPress.Security.EscapeOutput.HeredocOutputNotEscaped
 
-define( 'GGBWO_VER', '1.0.3' );
+define( 'GGBWO_VER', '1.0.5' );
 // define( 'GGBWO_VER', time() );
 define( 'GGBWO_PATH', plugin_dir_path( __FILE__ ) );
 define( 'GGBWO_URI', plugin_dir_url( __FILE__ ) );
@@ -210,13 +210,6 @@ function process_order( int $order_id ): string {
 		'post'   => $order_id,
 		'action' => 'edit',
 	], admin_url( 'post.php' ) );
-	$report_url        = add_query_arg( [
-		'page'          => 'wc-orders',
-		's'             => $order_id,
-		'search-filter' => 'order_id',
-	], admin_url( 'admin.php' ) );
-	$order_text        = esc_html__( 'Order detail', 'ggbwo' );
-	$report_text       = esc_html__( 'Send report', 'ggbwo' );
 	$order_address     = wp_kses( $order->get_formatted_billing_address(), [ 'br' => [] ] );
 	$order_date        = ! is_null( $order->get_date_created() ) ? $order->get_date_created()->getOffsetTimestamp() : '';
 	$order_date        = sprintf(
@@ -238,11 +231,10 @@ function process_order( int $order_id ): string {
 
 	$items = include_once GGBWO_PATH . 'templates/popup-order-items.php';
 	$body  = <<<HTML
-<h5 class="bwo-order-title">{$order_title}&nbsp;
-	<small>
-		<a href="{$order_url}" target="_blank" class="bwo-order-url">{$order_text}</a> -
-		<a href="{$report_url}" target="_blank" class="bwo-order-url">{$report_text}</a>
-	</small>
+<h5 class="bwo-order-title">
+	<a href="{$order_url}" target="_blank" class="bwo-order-url">{$order_title}
+		<span class="dashicons dashicons-external"></span>
+	</a>
 </h5>
 <div class="bwo-order-data">
 	<div>
