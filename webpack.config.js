@@ -36,6 +36,11 @@ module.exports = {
 	optimization: {
 		minimizer: [
 			new terser({
+				terserOptions: {
+					format: {
+						comments: false,
+					},
+				},
 				extractComments: false,
 			}),
 			'...',
