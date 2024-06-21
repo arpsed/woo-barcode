@@ -34,13 +34,13 @@ export default () => {
 				}
 			}, false );
 
-			d.addEventListener( 'ggModalOpen', function ( e ) {
+			d.addEventListener( 'bwoModalOpen', function ( e ) {
 				if ( e.detail.modalTarget ) {
 					handlerOpen( document.getElementById( e.detail.modalTarget ), {});
 				}
 			}, false );
 
-			d.addEventListener( 'ggModalClose', function ( e ) {
+			d.addEventListener( 'bwoModalClose', function ( e ) {
 				if ( e.detail.modalTarget ) {
 					handlerClose( parseInt( document.getElementById( e.detail.modalTarget ).dataset.modalId ) );
 				}
